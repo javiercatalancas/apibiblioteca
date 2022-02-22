@@ -13,4 +13,5 @@ class Prestamo extends Model
     public function libro(){
         $this->belongsTo(Libro::class, 'id_libro');
     }
+    
 }
