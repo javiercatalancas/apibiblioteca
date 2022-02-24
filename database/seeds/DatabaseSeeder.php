@@ -13,6 +13,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsuarioSeeder::class);
         $this->call(LibroSeeder::class);
-        $this->call(PrestamoSeeder::class);
+       // $this->call(PrestamoSeeder::class);
+
+
+       // Hay que configurar el seed de libro_usuario con attach
+
+       
     }
 }

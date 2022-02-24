@@ -11,7 +11,8 @@ class PrestamoSeeder extends Seeder
      */
     public function run()
     {
-       factory(\App\Prestamo::class)->times(10)->create();
+
+       //factory(\App\Prestamo::class)->times(10)->create();
 
     }
 }

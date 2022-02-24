@@ -38,9 +38,9 @@ class Usuario extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function prestamos(){
-        return $this->belongsTo(Prestamo::class, 'id_usuario');
+    // relación con Libro
+    public function libros(){
+        return $this->belongsToMany(Libro::class);
     }
 
      /**

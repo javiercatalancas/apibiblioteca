@@ -10,8 +10,8 @@ class Libro extends Model
         'titulo', 'descripcion'
     ];
 
-
-    public function prestamo(){
-        $this->belongsTo(Prestamo::class, 'id_libro');
+// HACER RELACIOÓN CON USUARIO
+    public function usuarios(){
+        $this->belongsToMany(Usuario::class);
     }
 }
