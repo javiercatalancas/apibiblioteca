@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
        // Hay que configurar el seed de libro_usuario con attach
 
        
+       
     }
 }

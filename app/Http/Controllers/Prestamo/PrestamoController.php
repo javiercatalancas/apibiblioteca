@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Prestamo;
 
-use App\Prestamo;
+use App\Libro;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,9 +13,11 @@ class PrestamoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Libro $libro)
     {
-        //
+        $prestamo = $libro -> usuarios;
+        return $this ->showAll($prestamo);
+
     }
 
     /**
@@ -45,22 +47,22 @@ class PrestamoController extends Controller
      * @param  \App\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-    public function show(Prestamo $prestamo)
+  /*   public function show(Prestamo $prestamo)
     {
         //
     }
-
+ */
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Prestamo $prestamo)
+    /* public function edit(Prestamo $prestamo)
     {
         //
     }
-
+ */
     /**
      * Update the specified resource in storage.
      *
@@ -68,10 +70,10 @@ class PrestamoController extends Controller
      * @param  \App\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prestamo $prestamo)
+   /*  public function update(Request $request, Prestamo $prestamo)
     {
         //
-    }
+    } */
 
     /**
      * Remove the specified resource from storage.
@@ -79,8 +81,8 @@ class PrestamoController extends Controller
      * @param  \App\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Prestamo $prestamo)
+   /*  public function destroy(Prestamo $prestamo)
     {
         //
-    }
+    } */
 }

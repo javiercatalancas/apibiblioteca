@@ -25,7 +25,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -36,7 +36,8 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+                //Validación e inserción
+
     }
 
     /**

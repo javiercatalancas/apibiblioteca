@@ -13,6 +13,7 @@ class PrestamoSeeder extends Seeder
     {
 
        //factory(\App\Prestamo::class)->times(10)->create();
+        
 
     }
 }

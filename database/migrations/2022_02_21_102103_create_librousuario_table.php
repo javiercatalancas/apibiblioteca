@@ -36,6 +36,6 @@ class CreatePrestamosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prestamos');
+        Schema::dropIfExists('libro_usuario');
     }
 }

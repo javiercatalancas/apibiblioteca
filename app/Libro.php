@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\Usuario;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,8 +11,8 @@ class Libro extends Model
         'titulo', 'descripcion'
     ];
 
-// HACER RELACIOÓN CON USUARIO
+// HACER RELACIÓN CON USUARIO
     public function usuarios(){
-        $this->belongsToMany(Usuario::class);
+       return $this->belongsToMany(Usuario::class);
     }
 }
