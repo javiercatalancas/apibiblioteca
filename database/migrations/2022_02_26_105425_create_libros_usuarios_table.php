@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePrestamosTable extends Migration
+class CreateLibrosUsuariosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,10 +19,10 @@ class CreatePrestamosTable extends Migration
             $table->integer('libro_id')->unsigned();
             $table->timestamps();
             
-            $table->foreign('id_usuario')
+            $table->foreign('usuario_id')
                     ->references('id')
                     ->on('usuarios');
-            $table->foreign('id_libro')
+            $table->foreign('libro_id')
                   ->references('id')
                   ->on('libros');  
 
@@ -36,6 +36,6 @@ class CreatePrestamosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('libro_usuario');
+        Schema::dropIfExists('libros_usuarios');
     }
 }

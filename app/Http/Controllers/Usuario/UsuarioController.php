@@ -46,9 +46,9 @@ class UsuarioController extends Controller
      * @param  \App\usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function show(usuario $usuario)
+    public function show(Usuario $usuario)
     {
-        //
+        return $this->showOne($usuario);
     }
 
     /**

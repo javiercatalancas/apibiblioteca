@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Prestamo;
 
 use App\Libro;
+use App\Usuario;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,9 +14,9 @@ class PrestamoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Libro $libro)
+    public function index(Libro $libro, Usuario $usuario)
     {
-        $prestamo = $libro -> usuarios;
+        $prestamo = $usuario ->with('libros')-> whereHas('libros')->get();
         return $this ->showAll($prestamo);
 
     }
@@ -47,11 +48,13 @@ class PrestamoController extends Controller
      * @param  \App\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-  /*   public function show(Prestamo $prestamo)
-    {
-        //
+     public function show(Usuario $usuario, $param)
+    {   
+        $prestamo = $usuario ->with('libros')-> whereHas('libros')->get()->find($param);
+        return $this ->showAll($prestamo);
+
     }
- */
+ 
     /**
      * Show the form for editing the specified resource.
      *

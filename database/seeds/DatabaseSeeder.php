@@ -1,5 +1,7 @@
 <?php
 
+use App\Libro;
+use App\Usuario;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,7 +19,11 @@ class DatabaseSeeder extends Seeder
 
 
        // Hay que configurar el seed de libro_usuario con attach
-
+    for ($i=0; $i<20; $i++){
+        $libro = Libro::all()->random()->id;
+        $usuario = Usuario::all()->random();
+        $usuario->libros()->attach($libro);
+    }
        
        
     }
