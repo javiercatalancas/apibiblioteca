@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Libro;
-
+use App\Transformers\UsuarioTransformer;
 
 class Usuario extends Authenticatable implements JWTSubject
 {
@@ -38,6 +38,8 @@ class Usuario extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public $transformer = UsuarioTransformer::class;
 
     // relación con Libro
     public function libros(){

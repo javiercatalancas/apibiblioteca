@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 
+
 trait ApiResponser
 {
     function successResponse($data, $code = 200)
@@ -17,7 +18,8 @@ trait ApiResponser
     
     function errorResponse($message, $code)
     {
-        return response()->json(['error' => ['message' => $message, 'code' => $code]], $code);
+       // return response()->json(['error' => ['message' => $message, 'code' => $code]], $code);
+       return response()->json(['error' => $message, 'code' => $code], $code);
     }
 
     function showAll($collection, $code = 200)
@@ -28,8 +30,8 @@ trait ApiResponser
         return $this->successResponse(['data' => $collection], $code);
     }
     $collection = $this->paginateCollection($collection);
-    //$transformer = $collection->first()->transformer;
-    //$collection = $this->transformData($collection, $transformer);
+    $transformer = $collection->first()->transformer;
+    $collection = $this->transformData($collection, $transformer);
 
     return $this->successResponse(['data' => $collection], $code);
 
@@ -38,6 +40,9 @@ trait ApiResponser
     
     function showOne(Model $instance, $code = 200)
     {
+        $transformer = $instance->transformer;
+        $instance = $this->transformData($instance, $transformer);
+
         return $this->successResponse(['data' => $instance], $code);
     }
 
@@ -69,4 +74,13 @@ trait ApiResponser
         $paginated->appends(request()->all());
         return $paginated;
     }
+
+    protected function transformData($data, $transformer)
+	{
+		$transformation = fractal($data, new $transformer);
+
+		return $transformation->toArray();
+	}
+
+
 }

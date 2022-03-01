@@ -6,14 +6,43 @@ use App\Libro;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Transformers\LibroTransformer;
 
 class LibroController extends Controller
 {
+
+
+    public function __construct()
+	{
+		$this->middleware('transform.input:' . LibroTransformer::class)->only(['store', 'update']);
+	}
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
+      /**
+    * @OA\Get(
+        
+    *     path="/api/libros",
+    *     tags={"libros"},
+    *     summary="Mostrar un listado de libros",
+    *     @OA\Response(
+    *         response=200,
+    *         description="Mostrar todos los usuarios."
+    *     ),
+    *     @OA\Response(
+    *         response="default",
+    *         description="Ha ocurrido un error."
+    *     )
+    * )
+    */
+
+
+
     public function index()
     {
         return $this->showAll(Libro::all());
@@ -27,9 +56,40 @@ class LibroController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
+
+       /**
+        * @OA\Post(
+        *     path="/api/libros",
+        *     tags={"libros"},
+        *     summary="Añadir un Libro",
+        *     @OA\Response(
+        *         response=200,
+        *         description="Con esta ruta se crea un nuevo libro"
+        *     ),
+        *     @OA\Response(
+        *         response="default",
+        *         description="Ha ocurrido un error."
+        *     )
+        * )
+        */
+
+
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'titulo' => 'required|max:255',
+            'descripcion' => 'required|max:255',
+        ];
+        $messages = [
+            'required' => 'El campo :attribute es obligatorio.',
+            'titulo.required' => 'El campo :attribute no tiene el formato adecuado o está vacío.',
+            'descripcion.required' => 'El campo :attribute no tiene el formato adecuado o está vacío.',
+        ];
+        $validatedData = $request->validate($rules, $messages);
+        $libro = Libro::create($validatedData);
+        return $this->showOne($libro,201);
     }
 
     /**

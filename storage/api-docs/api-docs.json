@@ -1,0 +1,125 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Biblioteca",
+        "version": "pre-Alpha"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "paths": {
+        "/api/libros": {
+            "get": {
+                "tags": [
+                    "libros"
+                ],
+                "summary": "Mostrar un listado de libros",
+                "operationId": "5de8af456fc24b6be3c98332057468d3",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar todos los usuarios."
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "libros"
+                ],
+                "summary": "Añadir un Libro",
+                "operationId": "e2798d77c0ea0393430855825b008022",
+                "responses": {
+                    "200": {
+                        "description": "Con esta ruta se crea un nuevo libro"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        },
+        "/api/usuarios": {
+            "get": {
+                "tags": [
+                    "usuarios"
+                ],
+                "summary": "Mostrar un listado de Usuarios",
+                "operationId": "cd4d8c0bb2286c62520d57714c8b3b2d",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar todos los usuarios."
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "usuarios"
+                ],
+                "summary": "Modificar usuario",
+                "operationId": "4f5aadc36c28dce0638d616c063c772a",
+                "responses": {
+                    "200": {
+                        "description": "Actualiza un usuario"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "usuarios"
+                ],
+                "summary": "Añadir un Usuario",
+                "operationId": "5ca59aa4a769ef25d650b9affdba01f8",
+                "responses": {
+                    "200": {
+                        "description": "Con esta ruta se crea un nuevo usuario"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "usuarios"
+                ],
+                "summary": "Borrar usuario",
+                "operationId": "7b0e4da509113fad7c9221b81a6374fe",
+                "responses": {
+                    "200": {
+                        "description": "Borra un usuario con la id por parámetro"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        },
+        "/api/usuarios/{usuarios}": {
+            "get": {
+                "tags": [
+                    "usuarios"
+                ],
+                "summary": "Mostrar un usuario",
+                "operationId": "dd333d1016c2a89e9705cddb6d180e5b",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar el usuario con la id pasada por la ruta"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        }
+    }
+}
