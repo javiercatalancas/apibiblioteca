@@ -22,24 +22,27 @@ class PrestamoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Usuario $usuario)
     {
-        //
+        $rules = [
+           // 'usuario_id' => 'required',
+            'libro_id' => 'required'
+        ];
+
+        $messages = [
+           // 'usuario_id.required' => 'introduce una id de usuario válida',
+            'libro_id.required' => 'Introduce una id de libro válida'
+        ];
+        $validatedData = $request->validate($rules, $messages);
+        dd($usuario ->libros()->attach($validatedData));
+
+        $usuario ->libros()->attach($validatedData);
+        return $this->showOne($usuario,201);
     }
 
     /**
@@ -55,17 +58,7 @@ class PrestamoController extends Controller
 
     }
  
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Prestamo  $prestamo
-     * @return \Illuminate\Http\Response
-     */
-    /* public function edit(Prestamo $prestamo)
-    {
-        //
-    }
- */
+   
     /**
      * Update the specified resource in storage.
      *
@@ -73,10 +66,12 @@ class PrestamoController extends Controller
      * @param  \App\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-   /*  public function update(Request $request, Prestamo $prestamo)
+     public function update(Request $request)
     {
-        //
-    } */
+        
+
+
+    } 
 
     /**
      * Remove the specified resource from storage.

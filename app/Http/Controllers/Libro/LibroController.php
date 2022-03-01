@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Libro;
 
 use App\Libro;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 class LibroController extends Controller
@@ -62,7 +63,20 @@ class LibroController extends Controller
      */
     public function update(Request $request, Libro $libro)
     {
-        //
+        $rules = [
+            'titulo' => 'min:5|max:255',
+            'descripcion' => 'min:5|max:255',
+            
+        ];
+        $validatedData = $request->validate($rules);
+
+        $libro->fill($validatedData);
+
+        if(!$libro->isDirty()){
+            return response()->json(['error'=>['code' => 422, 'message' => 'please specify at least one different value' ]], 422);
+        }
+        $libro->save();
+        return $this->showOne($libro);  
     }
 
     /**
@@ -73,6 +87,7 @@ class LibroController extends Controller
      */
     public function destroy(Libro $libro)
     {
-        //
+        $libro->delete();
+        return $this->showOne($libro);
     }
 }

@@ -21,10 +21,12 @@ class CreateLibrosUsuariosTable extends Migration
             
             $table->foreign('usuario_id')
                     ->references('id')
-                    ->on('usuarios');
+                    ->on('usuarios')
+                    ->onDelete('cascade');
             $table->foreign('libro_id')
                   ->references('id')
-                  ->on('libros');  
+                  ->on('libros')
+                  ->onDelete('cascade');  
 
         });
     }
