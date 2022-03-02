@@ -60,7 +60,7 @@ class PrestamoController extends Controller
             'libro_id.required' => 'Introduce una id de libro válida'
         ];
         $validatedData = $request->validate($rules, $messages);
-        dd($usuario ->libros()->attach($validatedData));
+       // dd($usuario ->libros()->attach($validatedData));
 
         $usuario ->libros()->attach($validatedData);
         return $this->showOne($usuario,201);
@@ -72,10 +72,10 @@ class PrestamoController extends Controller
      * @param  \App\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-     public function show(Usuario $usuario, $param)
+     public function show(Libro $libro, Usuario $usuario, $param)
     {   
-        $prestamo = $usuario ->with('libros')-> whereHas('libros')->get()->find($param);
-        return $this ->showAll($prestamo);
+        $prestamo = $usuario->with('libros')->whereHas('libros')->find($param);
+        return $this ->showOne($prestamo);
 
     }
  
