@@ -8,6 +8,13 @@ use App\Http\Controllers\Controller;
 
 class UsuarioPrestamoController extends Controller
 {
+
+
+
+
+
+
+    
     public function store(Request $request, Usuario $usuario)
     {
         $rules = [
