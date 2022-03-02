@@ -16,6 +16,10 @@ use App\Transformers\UsuarioTransformer;
 
 class UsuarioController extends Controller
 {
+    public function __construct()
+	{
+		$this->middleware('transform.input:' . UsuarioTransformer::class)->only(['store', 'update']);
+	}
 
  /**
     * @OA\Get(
@@ -35,10 +39,7 @@ class UsuarioController extends Controller
     */
 
 
-    public function __construct()
-	{
-		$this->middleware('transform.input:' . UsuarioTransformer::class)->only(['store', 'update']);
-	}
+  
     /**
      * Display a listing of the resource.
      *
@@ -72,11 +73,48 @@ class UsuarioController extends Controller
         *     path="/api/usuarios",
         *     tags={"usuarios"},
         *     summary="Añadir un Usuario",
+        *@OA\Parameter(
+        *         name="name",
+        *         in="query",
+        *         description="Nombre",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *@OA\Parameter(
+        *         name="email",
+        *         in="query",
+        *         description="Email del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *@OA\Parameter(
+        *         name="password",
+        *         in="query",
+        *         description="Contraseña del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+         *@OA\Parameter(
+        *         name="password_confirmation",
+        *         in="query",
+        *         description="Confirmar contraseña del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
         *     @OA\Response(
         *         response=200,
         *         description="Con esta ruta se crea un nuevo usuario"
         *     ),
-        *     @OA\Response(
+        *
+        *@OA\Response(
         *         response="default",
         *         description="Ha ocurrido un error."
         *     )
@@ -85,12 +123,11 @@ class UsuarioController extends Controller
 
     public function store(Request $request)
     {
-
        
         {   
             $rules = [
                 'name' => 'required|max:255',
-                'email' => 'required|email|unique:users,email',
+                'email' => 'required|email|unique:usuarios,email',
                 'password' => 'required|min:6|confirmed',
             ];
             $messages = [
@@ -101,8 +138,8 @@ class UsuarioController extends Controller
             ];
             $validatedData = $request->validate($rules, $messages);
             $validatedData['password'] = bcrypt($validatedData['password']);
-            $user = Usuario::create($validatedData);
-            return $this->showOne($user,201);
+            $usuario = Usuario::create($validatedData);
+            return $this->showOne($usuario,201);
         }
 
     }
@@ -120,6 +157,15 @@ class UsuarioController extends Controller
         *     path="/api/usuarios/{usuarios}",
         *     tags={"usuarios"},
         *     summary="Mostrar un usuario",
+        *@OA\Parameter(
+        *         name="usuarios",
+        *         in="path",
+        *         description="Id del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer"
+        *         )
+        *     ),
         *     @OA\Response(
         *         response=200,
         *         description="Mostrar el usuario con la id pasada por la ruta"
@@ -149,9 +195,54 @@ class UsuarioController extends Controller
 
       /**
         * @OA\Put(
-        *     path="/api/usuarios",
+        *     path="/api/usuarios/{usuarios}",
         *     tags={"usuarios"},
         *     summary="Modificar usuario",
+        *@OA\Parameter(
+        *         name="usuarios",
+        *         in="path",
+        *         description="Id del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer"
+        *         )
+        *     ),
+        *@OA\Parameter(
+        *         name="name",
+        *         in="query",
+        *         description="Nombre",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *@OA\Parameter(
+        *         name="email",
+        *         in="query",
+        *         description="Email del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *@OA\Parameter(
+        *         name="password",
+        *         in="path",
+        *         description="Contraseña del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *@OA\Parameter(
+        *         name="usuarios",
+        *         in="path",
+        *         description="Id del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer"
+        *         )
+        *     ),
         *     @OA\Response(
         *         response=200,
         *         description="Actualiza un usuario"
@@ -197,9 +288,18 @@ class UsuarioController extends Controller
 
      /**
         * @OA\Delete(
-        *     path="/api/usuarios",
+        *     path="/api/usuarios/{usuarios}",
         *     tags={"usuarios"},
         *     summary="Borrar usuario",
+        *@OA\Parameter(
+        *         name="usuarios",
+        *         in="path",
+        *         description="Id del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer"
+        *         )
+        *     ),
         *     @OA\Response(
         *         response=200,
         *         description="Borra un usuario con la id por parámetro"

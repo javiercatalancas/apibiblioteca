@@ -25,6 +25,63 @@ class JWTAuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+
+
+ /**
+        * @OA\Post(
+        *     path="/api/auth/register",
+        *     tags={"JWTAuthenticator"},
+        *     summary="Registrar un Usuario desde JWT",
+        *@OA\Parameter(
+        *         name="name",
+        *         in="query",
+        *         description="Nombre",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *@OA\Parameter(
+        *         name="email",
+        *         in="query",
+        *         description="Email del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *@OA\Parameter(
+        *         name="password",
+        *         in="query",
+        *         description="Contraseña del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+         *@OA\Parameter(
+        *         name="password_confirmation",
+        *         in="query",
+        *         description="Confirmar contraseña del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *     @OA\Response(
+        *         response=200,
+        *         description="Con esta ruta se crea un nuevo usuario"
+        *     ),
+        *
+        *@OA\Response(
+        *         response="default",
+        *         description="Ha ocurrido un error."
+        *     )
+        * )
+        */
+
+
+
     public function register(Request $request)
     {
 
@@ -43,22 +100,6 @@ class JWTAuthController extends Controller
         $user = Usuario::create($validatedData);
         return $this->showOne($user,201);
 
-/* 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|between:2,100',
-            'email' => 'required|email|unique:users|max:50',
-            'password' => 'required|confirmed|string|min:6',
-        ]);
-
-        $user = Usuario::create(array_merge(
-                    $validator->validated(),
-                    ['password' => bcrypt($request->password)]
-                ));
-
-        return response()->json([
-            'message' => 'Successfully registered',
-            'user' => $user
-        ], 201); */
     }
 
     /**
@@ -66,6 +107,45 @@ class JWTAuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+
+      /**
+        * @OA\Post(
+        *     path="/api/auth/login",
+        *     tags={"JWTAuthenticator"},
+        *     summary="Logear un Usuario desde JWT",
+        *@OA\Parameter(
+        *         name="email",
+        *         in="query",
+        *         description="Email del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *@OA\Parameter(
+        *         name="password",
+        *         in="query",
+        *         description="Contraseña del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *     @OA\Response(
+        *         response=200,
+        *         description="Ruta para hacer Login y crear un nuevo token"
+        *     ),
+        *
+        *@OA\Response(
+        *         response="default",
+        *         description="Ha ocurrido un error."
+        *     )
+        * )
+        */
+
+
+
+
     public function login(Request $request)
     {
     	$validator = Validator::make($request->all(), [

@@ -32,7 +32,7 @@ class LibroController extends Controller
     *     summary="Mostrar un listado de libros",
     *     @OA\Response(
     *         response=200,
-    *         description="Mostrar todos los usuarios."
+    *         description="Mostrar todos los libros."
     *     ),
     *     @OA\Response(
     *         response="default",
@@ -64,6 +64,24 @@ class LibroController extends Controller
         *     path="/api/libros",
         *     tags={"libros"},
         *     summary="Añadir un Libro",
+        *@OA\Parameter(
+        *         name="titulo",
+        *         in="query",
+        *         description="Título del libro",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *@OA\Parameter(
+        *         name="descripcion",
+        *         in="query",
+        *         description="Descripción del libro",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
         *     @OA\Response(
         *         response=200,
         *         description="Con esta ruta se crea un nuevo libro"
@@ -98,21 +116,80 @@ class LibroController extends Controller
      * @param  \App\Libro  $libro
      * @return \Illuminate\Http\Response
      */
+
+ /**
+        * @OA\Get(
+        *     path="/api/libros/{libros}",
+        *     tags={"libros"},
+        *     summary="Mostrar un Libro por su id",
+        *@OA\Parameter(
+        *         name="libros",
+        *         in="path",
+        *         description="Id del libro",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer"
+        *         )
+        *     ),
+        *     @OA\Response(
+        *         response=200,
+        *         description="Con esta ruta se muestra un solo libro"
+        *     ),
+        *     @OA\Response(
+        *         response="default",
+        *         description="Ha ocurrido un error."
+        *     )
+        * )
+        */
+
+
     public function show(Libro $libro)
     {
         return $this->showOne($libro);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Libro  $libro
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Libro $libro)
-    {
-        //
-    }
+      /**
+        * @OA\Put(
+        *     path="/api/libros/{libros}",
+        *     tags={"libros"},
+        *     summary="Editar un Libro dada la id",
+        *@OA\Parameter(
+        *         name="libros",
+        *         in="path",
+        *         description="Id del libro",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer"
+        *         )
+        *     ),
+        *@OA\Parameter(
+        *         name="titulo",
+        *         in="query",
+        *         description="Título del libro",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *@OA\Parameter(
+        *         name="descripcion",
+        *         in="query",
+        *         description="Descripción del libro",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string"
+        *         )
+        *     ),
+        *     @OA\Response(
+        *         response=200,
+        *         description="Con esta ruta se edita un libro"
+        *     ),
+        *     @OA\Response(
+        *         response="default",
+        *         description="Ha ocurrido un error."
+        *     )
+        * )
+        */
 
     /**
      * Update the specified resource in storage.
@@ -145,6 +222,35 @@ class LibroController extends Controller
      * @param  \App\Libro  $libro
      * @return \Illuminate\Http\Response
      */
+
+     /**
+        * @OA\Delete(
+        *     path="/api/libros/{libros}",
+        *     tags={"libros"},
+        *     summary="Borrar libro por su id",
+        *@OA\Parameter(
+        *         name="libros",
+        *         in="path",
+        *         description="Id del libro",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer"
+        *         )
+        *     ),
+        *     @OA\Response(
+        *         response=200,
+        *         description="Borra un libro con la id por parámetro"
+        *     ),
+        *     @OA\Response(
+        *         response="default",
+        *         description="Ha ocurrido un error."
+        *     )
+        * )
+        */
+
+
+
+
     public function destroy(Libro $libro)
     {
         $libro->delete();

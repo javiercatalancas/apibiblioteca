@@ -38,6 +38,7 @@ class UsuarioTransformer extends TransformerAbstract
             'correo' => (string)$usuario->email,
             'fechaCreacion' => (string)$usuario->created_at,
             'fechaActualizacion' => (string)$usuario->updated_at,
+            'libros'=>$usuario->libros,
             'links' => [
                 [
                     'rel' => 'self',
@@ -60,6 +61,7 @@ class UsuarioTransformer extends TransformerAbstract
             'correo' => 'email',
             'contraseña' => 'password',
             'fechaCreacion' => 'created_at',
+            'contraseña_confirmation' => 'password_confirmation',
             'fechaActualizacion' => 'updated_at',
         ];
         return isset($attributes[$index]) ? $attributes[$index] : null;
@@ -72,6 +74,7 @@ class UsuarioTransformer extends TransformerAbstract
             'name' => 'nombre',
             'email' => 'correo',
             'password' => 'contraseña',
+            'password_confirmation' => 'contraseña_confirmation',
             'created_at' => 'fechaCreacion',
             'updated_at' => 'fechaActualizacion',
         ];

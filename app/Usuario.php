@@ -11,6 +11,8 @@ use App\Transformers\UsuarioTransformer;
 
 class Usuario extends Authenticatable implements JWTSubject
 {
+    public $transformer = UsuarioTransformer::class;
+
     use Notifiable;
   /**
      * The attributes that are mass assignable.
@@ -39,7 +41,6 @@ class Usuario extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public $transformer = UsuarioTransformer::class;
 
     // relación con Libro
     public function libros(){

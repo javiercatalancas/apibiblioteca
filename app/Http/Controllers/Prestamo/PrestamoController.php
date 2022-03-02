@@ -14,6 +14,27 @@ class PrestamoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+     /**
+    * @OA\Get(
+        
+    *     path="/api/prestamos",
+    *     tags={"préstamos"},
+    *     summary="Mostrar un listado de Préstamos",
+    *     @OA\Response(
+    *         response=200,
+    *         description="Mostrar todos los préstamos."
+    *     ),
+    *     @OA\Response(
+    *         response="default",
+    *         description="Ha ocurrido un error."
+    *     )
+    * )
+    */
+
+
+
     public function index(Libro $libro, Usuario $usuario)
     {
         $prestamo = $usuario ->with('libros')-> whereHas('libros')->get();

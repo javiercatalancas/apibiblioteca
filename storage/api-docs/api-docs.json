@@ -10,6 +10,98 @@
         }
     ],
     "paths": {
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "JWTAuthenticator"
+                ],
+                "summary": "Registrar un Usuario desde JWT",
+                "operationId": "5b1b8396e0f0688bc98f8183fce8e920",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Nombre",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Contraseña del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "description": "Confirmar contraseña del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Con esta ruta se crea un nuevo usuario"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "JWTAuthenticator"
+                ],
+                "summary": "Logear un Usuario desde JWT",
+                "operationId": "0e84dcf529e9de27079b2baa9301088c",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Contraseña del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ruta para hacer Login y crear un nuevo token"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        },
         "/api/libros": {
             "get": {
                 "tags": [
@@ -19,7 +111,7 @@
                 "operationId": "5de8af456fc24b6be3c98332057468d3",
                 "responses": {
                     "200": {
-                        "description": "Mostrar todos los usuarios."
+                        "description": "Mostrar todos los libros."
                     },
                     "default": {
                         "description": "Ha ocurrido un error."
@@ -32,9 +124,143 @@
                 ],
                 "summary": "Añadir un Libro",
                 "operationId": "e2798d77c0ea0393430855825b008022",
+                "parameters": [
+                    {
+                        "name": "titulo",
+                        "in": "query",
+                        "description": "Título del libro",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "descripcion",
+                        "in": "query",
+                        "description": "Descripción del libro",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Con esta ruta se crea un nuevo libro"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        },
+        "/api/libros/{libros}": {
+            "get": {
+                "tags": [
+                    "libros"
+                ],
+                "summary": "Mostrar un Libro por su id",
+                "operationId": "18223e4cac7c0b9d8bc8470ddb41483f",
+                "parameters": [
+                    {
+                        "name": "libros",
+                        "in": "path",
+                        "description": "Id del libro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Con esta ruta se muestra un solo libro"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "libros"
+                ],
+                "summary": "Editar un Libro dada la id",
+                "parameters": [
+                    {
+                        "name": "libros",
+                        "in": "path",
+                        "description": "Id del libro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "titulo",
+                        "in": "query",
+                        "description": "Título del libro",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "descripcion",
+                        "in": "query",
+                        "description": "Descripción del libro",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Con esta ruta se edita un libro"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "libros"
+                ],
+                "summary": "Borrar libro por su id",
+                "operationId": "51693a7e5564c52bf525ccfd54567b72",
+                "parameters": [
+                    {
+                        "name": "libros",
+                        "in": "path",
+                        "description": "Id del libro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Borra un libro con la id por parámetro"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        },
+        "/api/prestamos": {
+            "get": {
+                "tags": [
+                    "préstamos"
+                ],
+                "summary": "Mostrar un listado de Préstamos",
+                "operationId": "9a12ec233a283bef56c75936868ecd29",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar todos los préstamos."
                     },
                     "default": {
                         "description": "Ha ocurrido un error."
@@ -48,25 +274,9 @@
                     "usuarios"
                 ],
                 "summary": "Mostrar un listado de Usuarios",
-                "operationId": "cd4d8c0bb2286c62520d57714c8b3b2d",
                 "responses": {
                     "200": {
                         "description": "Mostrar todos los usuarios."
-                    },
-                    "default": {
-                        "description": "Ha ocurrido un error."
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "usuarios"
-                ],
-                "summary": "Modificar usuario",
-                "operationId": "4f5aadc36c28dce0638d616c063c772a",
-                "responses": {
-                    "200": {
-                        "description": "Actualiza un usuario"
                     },
                     "default": {
                         "description": "Ha ocurrido un error."
@@ -79,24 +289,47 @@
                 ],
                 "summary": "Añadir un Usuario",
                 "operationId": "5ca59aa4a769ef25d650b9affdba01f8",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Nombre",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Contraseña del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "description": "Confirmar contraseña del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Con esta ruta se crea un nuevo usuario"
-                    },
-                    "default": {
-                        "description": "Ha ocurrido un error."
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "usuarios"
-                ],
-                "summary": "Borrar usuario",
-                "operationId": "7b0e4da509113fad7c9221b81a6374fe",
-                "responses": {
-                    "200": {
-                        "description": "Borra un usuario con la id por parámetro"
                     },
                     "default": {
                         "description": "Ha ocurrido un error."
@@ -111,9 +344,108 @@
                 ],
                 "summary": "Mostrar un usuario",
                 "operationId": "dd333d1016c2a89e9705cddb6d180e5b",
+                "parameters": [
+                    {
+                        "name": "usuarios",
+                        "in": "path",
+                        "description": "Id del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Mostrar el usuario con la id pasada por la ruta"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "usuarios"
+                ],
+                "summary": "Modificar usuario",
+                "operationId": "703478d763573fb0469b0f1d85a8d50a",
+                "parameters": [
+                    {
+                        "name": "usuarios",
+                        "in": "path",
+                        "description": "Id del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Nombre",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "path",
+                        "description": "Contraseña del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "usuarios",
+                        "in": "path",
+                        "description": "Id del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Actualiza un usuario"
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "usuarios"
+                ],
+                "summary": "Borrar usuario",
+                "operationId": "93bc52b014cd7785c3e2ff8fd321454e",
+                "parameters": [
+                    {
+                        "name": "usuarios",
+                        "in": "path",
+                        "description": "Id del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Borra un usuario con la id por parámetro"
                     },
                     "default": {
                         "description": "Ha ocurrido un error."
