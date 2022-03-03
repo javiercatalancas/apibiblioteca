@@ -15,7 +15,6 @@ class PrestamoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
      /**
     * @OA\Get(
         
@@ -33,8 +32,6 @@ class PrestamoController extends Controller
     * )
     */
 
-
-
     public function index(Libro $libro, Usuario $usuario)
     {
         $prestamo = $usuario ->with('libros')-> whereHas('libros')->get();
@@ -42,29 +39,6 @@ class PrestamoController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request, Usuario $usuario)
-    {
-        $rules = [
-           // 'usuario_id' => 'required',
-            'libro_id' => 'required'
-        ];
-
-        $messages = [
-           // 'usuario_id.required' => 'introduce una id de usuario válida',
-            'libro_id.required' => 'Introduce una id de libro válida'
-        ];
-        $validatedData = $request->validate($rules, $messages);
-       // dd($usuario ->libros()->attach($validatedData));
-
-        $usuario ->libros()->attach($validatedData);
-        return $this->showOne($usuario,201);
-    }
 
     /**
      * Display the specified resource.
@@ -72,6 +46,32 @@ class PrestamoController extends Controller
      * @param  \App\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
+  /**
+    * @OA\Get(
+        
+    *     path="/api/prestamos/{prestamo}",
+    *     tags={"préstamos"},
+    *     summary="Mostrar los préstamos de un usuario por su Id",
+    *@OA\Parameter(
+        *         name="prestamo",
+        *         in="path",
+        *         description="id del usuario",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer"
+        *         )
+        *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="Se muestran los datos de los libros que tiene un usuario dada su id"
+    *     ),
+    *     @OA\Response(
+    *         response="default",
+    *         description="Ha ocurrido un error."
+    *     )
+    * )
+    */
+
      public function show(Libro $libro, Usuario $usuario, $param)
     {   
         $prestamo = $usuario->with('libros')->whereHas('libros')->find($param);
@@ -80,28 +80,4 @@ class PrestamoController extends Controller
     }
  
    
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Prestamo  $prestamo
-     * @return \Illuminate\Http\Response
-     */
-     public function update(Request $request)
-    {
-        
-
-
-    } 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Prestamo  $prestamo
-     * @return \Illuminate\Http\Response
-     */
-   /*  public function destroy(Prestamo $prestamo)
-    {
-        //
-    } */
 }
